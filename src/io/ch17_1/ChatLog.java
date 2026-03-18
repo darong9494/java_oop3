@@ -11,7 +11,8 @@ public class ChatLog {
         System.out.println("1. 대화 저장");
         System.out.println("2. 전체 로그 보기");
         System.out.println("3. 단어 검색");
-        System.out.print("4. 선택: ");
+        System.out.print("4. 이름 검색");
+        System.out.print("선택: ");
         String choice = sc.nextLine();
 
         if (choice.equals("1")) {
@@ -22,10 +23,40 @@ public class ChatLog {
             System.out.print("검색할 단어: ");
             String keyword = sc.nextLine();
             searchChat(keyword);
+        } else if (choice.equals("4")) {
+            System.out.print("검색할 이름: ");
+            String name = sc.nextLine();
+            searchByName(name);
         }
         sc.close();
 
     } // end of main
+
+    private static void searchByName(String name) {
+        System.out.println("\n---" + name + "검색 결과");
+        try (BufferedReader br = new BufferedReader(new FileReader("chat_log.txt"))) {
+            String line;
+            int count = 0;
+            while ((line = br.readLine()) != null) {
+                // 만약 Keyword 단어가 포함되어 있다면...
+                // "이름>" 으로 시작하는 줄만 필터링
+                if (line.startsWith(name + ">")) {
+                    System.out.println(line);
+                    count++;
+                }
+            }
+
+            if (count == 0) {
+                System.out.println(name + "이 포함된 대화가 없습니다.");
+            } else {
+                System.out.println("\n총" + count + "개의 대화 내용이 발견 되었습니다.");
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 
     private static void searchChat(String keyword) {
         // keyword >> (안녕) file에서 찾을거임
