@@ -1,0 +1,29 @@
+package My;
+
+import java.io.FileInputStream;
+
+public class TypingRecord2 {
+    private static void printRecord() throws Exception {
+        System.out.println("\n===저장된 기록 ===");
+        try (FileInputStream fin = new FileInputStream("typing_record.txt")) {
+            int data;
+            int lineNumber = 1; // 현재 출력 중인 줄 번호
+            StringBuilder sb = new StringBuilder();
+            // StringBuilder: 문자를 하나씩 이어붙이는 가변 문자열 버퍼
+            // String += "가" 를 반복하면 매번 새로은 객체가 생겨 느리므로 StringBuilder 사용한다.
+            while ((data = fin.read()) != -1) {
+                System.out.print((char) data);
+                // 출력할 때 만약 \n(개행문자) 이 들어온다면 카운트를 1씩 올리겠다
+                if((char) data == '\n') {
+                    // 개행 문자(\n) 만났다 == 한 줄이 끝났다.
+                    lineNumber++;
+                } else {
+                    // 개행문자(\n) 아니라면 sb에 계속 이어붙임
+                    sb.append((char) data);
+                }
+            } // end of while
+            System.out.println( "\n" + sb.toString());
+            System.out.println("총 " + lineNumber + "개의 기록이 있습니다");
+        }
+    }
+}
