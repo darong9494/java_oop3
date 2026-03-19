@@ -1,6 +1,5 @@
 package io.ch17_1;
 
-
 import java.io.*;
 import java.util.Scanner;
 

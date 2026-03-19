@@ -18,7 +18,7 @@ public class FileStreamBasic {
          * FileOutputStream과  fos.write(byte[])  달리 write(String) 이 가능합니다.
          * getBytes() 변환이 필요가 없습니다.
          */
-        // append 모들 설정하지 않으면 기본값이 false 이다.
+        // append 모드를 설정하지 않으면 기본값이 false 이다.
         try (FileWriter writer = new FileWriter(fileName)) {
             String text = "자바 문자 기반 스트림 예제\n";
             // text.getBytes() 이거 할 필요 없이
