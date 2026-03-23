@@ -23,8 +23,6 @@ public class SimpleFileServer {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-
     } // end of main
 
     // 파일 처리 기능 함수
@@ -61,5 +59,4 @@ public class SimpleFileServer {
             throw new RuntimeException(e);
         }
     }
-
 } // end of class
