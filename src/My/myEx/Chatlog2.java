@@ -1,4 +1,4 @@
-package My;
+package My.myEx;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

@@ -1,7 +1,5 @@
-package My;
+package My.myEx;
 
-
-import java.io.FileWriter;
 
 public class FileStreamBasic {
     // 파일에 텍스트를 쓰는 메소드 (문자 기반 스트림 사용)

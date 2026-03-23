@@ -1,15 +1,22 @@
-package client.ch03;
+package client.ch04;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.net.UnknownHostException;
+import java.util.Scanner;
 
-public class MultiThreadedClient {
+public class ChatClient {
     public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("채팅 이름을 입력하세요 : ");
+        String name = sc.nextLine();
+
         try (Socket socket = new Socket("192.168.4.101", 5000)) {
+
+            System.out.println(name + " 님, 채팅방 입장 했음(종료 : exit)");
+
             // 소켓에서 연결할 입력, 출력 스트림 2개가 필요
             PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -24,13 +31,8 @@ public class MultiThreadedClient {
                     try {
                         String serverMessage;
                         while ((serverMessage = reader.readLine()) != null) {
-                            if("exit".equalsIgnoreCase(serverMessage)) {
-                                System.out.println("서버가 종료 했습니다.");
-                                break;
-                            }
-                            System.out.println("서버: " +serverMessage);
                         }
-                    }catch (Exception e) {
+                    } catch (Exception e) {
                         System.out.println("서버측과 연결이 끊겼습니다.");
                     }
                 }
@@ -44,13 +46,16 @@ public class MultiThreadedClient {
                         String clientMessage;
                         while ((clientMessage = KeyboardReader.readLine()) != null) {
                             // null이 아니면 값이 들어갈것이다.
-                            writer.println(clientMessage);
-                            if("exit".equalsIgnoreCase(clientMessage)) {
-                                System.out.println("클라이언트가 종료했습니다.");
+
+                            if ("exit".equalsIgnoreCase(clientMessage)) {
+                                System.out.println("채팅방 종료.");
+                                writer.println("[" + name + "] 님이 퇴장했습니다.");
                                 break;
                             }
+                            // 서버에 메세지 전송
+                            writer.println("[" + name + "]" + clientMessage);
                         }
-                    }catch (IOException e) {
+                    } catch (IOException e) {
                         System.out.println("메세지 전송 중 오류가 발생했습니다.");
                     }
                 }

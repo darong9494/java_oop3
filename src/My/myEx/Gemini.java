@@ -1,4 +1,4 @@
-package My;
+package My.myEx;
 
 public class Gemini {
     public static void main(String[] args) {
