@@ -28,6 +28,8 @@ public class MemberMain {
             System.out.println("5. 회원 삭제");
             System.out.println("6. 전체 목록");
             System.out.println("7. 종료");
+            System.out.println("8. 이메일 조회");
+
             System.out.print("선택 : ");
             String choice = sc.nextLine();
 
@@ -92,6 +94,10 @@ public class MemberMain {
             } else if (choice.equals("7")) {
                 System.out.println("시스템을 종료합니다.");
                 break;
+            } else if (choice.equals("8")) {
+                String email = sc.nextLine();
+                System.out.println(repo.findByEmail(email));
+
             }
         }
     }

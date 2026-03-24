@@ -90,4 +90,31 @@ public class MemberRepository {
     public int count() {
         return memberList.size();
     }
+
+    // 이메일로 회원 조회하기
+    public Member findByEmail(String email) {
+        // ()안에 내가 어떤 타입을 넣을건지 작성해야한다.
+        // 전체 순회 전에 존재 여부부터 확인 >> 빠르게 존재여부 확인
+        if (emailSet.contains(email) == false) {
+            return null;
+        }
+        for(Member m : memberList) {
+            if(m.getEmail().equalsIgnoreCase(email)) {
+                return m;
+            }
+        }
+        return null;
+    }
+
+    // 나이 범위로 검색
+    public List<Member> findByAgeRange(int min, int max) {
+        List<Member> result = new ArrayList<>(); // 여러명일 때 사용
+        for (Member member : memberList) {
+            // 0 부터 끝까지 탐색 <for :>
+            if ( member.getAge() >= min && member.getAge() <= max) {
+                result.add(member);
+            }
+        }
+        return result;
+    }
 }
